@@ -7,15 +7,18 @@ def isPrime(n):
     print(n)
     return True
 
+primeArray = []
 def nthPrime(n):
     count = 1
     current = 2
     while count < n:
         current += 1
         if isPrime(current):
+            primeArray.append(current)
             count += 1
 
     return current
 
 print(nthPrime(10001))
+print(primeArray)
 
