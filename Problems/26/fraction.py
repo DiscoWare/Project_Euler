@@ -1,9 +1,13 @@
 def myDivision(n):
+    prevRemainder = -1
     remainder = 10
     result = ""
     for i in range(2 * n):
         result += str(remainder // n)
         remainder = (remainder % n) * 10
+        if prevRemainder == remainder:
+            return result
+        prevRemainder = remainder
     return result
 
 def longestSlice(n):
