@@ -13,6 +13,17 @@ def countSequence(n):
     counted[original] = count
     return count
 
+def countBruteForce(n):
+    count = 0
+    original = n
+    while n != 1:
+        if (n % 2 == 0):
+            n = n // 2
+        else:
+            n = 3 * n + 1
+        count += 1
+    return count
+
 counted = {}
 counted[1] = 1
 from time import time
@@ -23,6 +34,6 @@ for i in range(1, 1000000):
     if currentCount > biggestCount:
         biggestCount = currentCount
         number = i
+
 totalTime = time() - start
 print("Largest number: ", number, " Count: ", biggestCount, " Total time: ", totalTime)
-# print "Counted: ", counted
