@@ -2,17 +2,29 @@ from time import time
 from math import log10
 from math import floor
 
-timeInS = 0.0
+timeInS = 0
+greatestSum = 0
+greatestIndex = 0
 
 def s(n):
+    global timeInS
+    start = time()
     string = ""
-    while n > 0:
-        if n >= 9:
-            string = "9" + string
-            n -= 9    
-        else:    
-            string = str(n) + string
-            n -= n
+    #while n > 0:
+        #if n >= 9:
+            #string = "9" + string
+            #n -= 9    
+        #else:    
+            #string = str(n) + string
+            #n -= n
+    #timeInS += time() - start 
+    #return string
+    
+    if n > 9:
+        string = "9" * (n // 9)
+    else:
+        string = str(n % 9)
+    timeInS += time() - start
     return string
 
 def SBrute(n):
@@ -25,23 +37,21 @@ def Sum(n):
     return (n * (n + 1) // 2)
 
 def S(n):
-    global timeInS 
-    start = time()
-    exponent = floor(n / 9)
+    global greatestSum
+    global greatestIndex
     sum = 0
-    if exponent > 0:
-        sum += int(n % 9) * 9
-    else:
-        timeInS += (time() - start)
-        return Sum(n)
-
-    while exponent >= 0:
-        sum += (10 ** exponent) * 45
-        sum %= 1000000007
-        exponent -= 1
-    timeInS += time() - start
-    return sum
-print("Sum of 20: " +str(S(20)))
+    for i in range(n, 1, -1):
+        if greatestIndex == i:
+            sum += greatestSum
+            if n > greatestIndex:
+                greatestIndex = n
+                greatestSum = sum % 1000000007
+            return sum % 1000000007
+        sum += int(s(i)) % 1000000007
+    if n > greatestIndex:
+        greatestIndex = n
+        greatestSum = sum % 1000000007
+    return sum % 1000000007
 
 def fib(lower, n):
     result = [0]
@@ -66,10 +76,10 @@ def digitSum(lower, n):
     for f in lis:
         count += 1
         sum += S(f) 
-        sum = sum % 1000000007
+        sum = sum 
         percentDone = count / len(lis) * 100
         print("%.f%% done. Time in S: %.2f"%(percentDone, timeInS), end='\r')
     print("")
     return sum
-    
+
 print(digitSum(2, 90))
