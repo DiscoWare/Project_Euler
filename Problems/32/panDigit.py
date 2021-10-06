@@ -1,4 +1,17 @@
-from itertools import permutations
+def permutations(s):
+    if len(s) == 0:
+        return []
+    if len(s) == 1:
+        return [s]
+    
+    l = []
+
+    for i in range(len(s)):
+        for perm in permutations(s[:i] + s[i+1:]):
+            l.append(s[i] + perm)
+    return l 
+
+
 s = "123456789"
 p = permutations(s)
 
@@ -23,4 +36,3 @@ for permutation in strings:
                     print(permutation[0:i], "*", permutation[i:j], "=", permutation[j:len(permutation)])
                     sumOfProducts += product
 print("Sum of products:", sumOfProducts)
-
