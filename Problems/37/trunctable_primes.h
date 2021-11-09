@@ -14,22 +14,22 @@ unsigned int is_prime(int n)
     return 1;
 }
 
+// Does NOT check n itself
 unsigned int is_l_trunctable(int n)
 {
     int log = (int)log10(n);
 
     for (int i = log; i > 0; --i)
     {
-        int div = (int)(pow(10, i) + 0.5);
+        int div = (int)(pow(10, i) + 0.5);         // pow() can round to x.99999999, so add 0.5
         n %= div;
         if (!is_prime(n))
             return 0;
-        // printf("l: %d\n", n);
-
     }
     return 1;
 }
 
+// Does NOT check n itself
 unsigned int is_r_trunctable(int n)
 {
     int log = log10(n);
@@ -37,10 +37,7 @@ unsigned int is_r_trunctable(int n)
     {
         n /= 10;
         if (!is_prime(n))
-        {
             return 0;
-        }
-        // printf("r: %d\n", n);
     }
     return 1;
 }

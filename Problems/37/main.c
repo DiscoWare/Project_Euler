@@ -15,8 +15,6 @@ int main()
         }
         ++i;
     }
-    is_r_trunctable(53519);
-    is_l_trunctable(53519);
 
     return 0;
 }
